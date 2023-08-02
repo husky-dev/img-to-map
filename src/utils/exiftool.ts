@@ -1,5 +1,6 @@
 import { exec } from 'child_process';
 import { isArr, isStr, isUnknownDict } from './types';
+import { pad } from './str';
 
 export interface ExifToolMetadata {
   SourceFile: string; // "/some/path/IMG_4132.jpeg",
@@ -123,7 +124,7 @@ const isExifToolMetadata = (val: unknown): val is ExifToolMetadata => isUnknownD
 
 export const getImgExifMetadata = async (imgPath: string): Promise<ExifToolMetadata> =>
   new Promise((resolve, reject) => {
-    exec(`exiftool -j -n ${imgPath}`, (err, stdout, stderr) => {
+    exec(`exiftool -j -n "${imgPath}"`, (err, stdout, stderr) => {
       if (err) {
         reject(err);
       } else if (stderr) {
@@ -147,4 +148,31 @@ const parseExifToolOutput = (output: string): ExifToolMetadata => {
   const meta = data[0];
   if (!isExifToolMetadata(meta)) throw new Error('Invalid metadata');
   return meta;
+};
+
+export const parseExifToolDate = (dateStr: string, offsetStr?: string): Date | Error => {
+  const [date, time] = dateStr.split(' ');
+  if (!date || !time) return new Error('Missing date or time');
+  const [year, month, day] = date.split(':');
+  if (!year || !month || !day) return new Error('Missing year, month, or day');
+  const [hour, minute, second] = time.split(':');
+  if (!hour || !minute || !second) return new Error('Missing hour, minute, or second');
+  if (!offsetStr) {
+    const parsed = new Date(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute),
+      parseInt(second),
+    );
+    if (isNaN(parsed.getTime())) return new Error('Invalid date');
+    return parsed;
+  } else {
+    const parsed = new Date(
+      `${year}-${pad(month, 2)}-${pad(day, 2)}T${pad(hour, 2)}:${pad(minute, 2)}:${pad(second, 2)}.000${offsetStr}`,
+    );
+    if (isNaN(parsed.getTime())) return new Error('Invalid date');
+    return parsed;
+  }
 };
