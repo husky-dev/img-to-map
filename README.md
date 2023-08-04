@@ -5,7 +5,9 @@
 
 `img-to-map` is a command line tool for generating GPX (GPS Exchange Format) files from images that contain GPS data. The tool uses [ExifTool](https://exiftool.org/) to extract the geographical coordinates from your photos and create a GPX track from them.
 
-GPX is a widely accepted data format that allows for the sharing and visualizing of GPS data across a variety of platforms and services. Once you've generated a GPX file with `img-to-map`, you can upload it to platforms such as Strava or Google Maps, or use other tracking services or map software that supports the GPX format. This opens a plethora of possibilities, including analyzing your journey, sharing your travel routes with others, or re-living your adventures.
+![img-to-map result example](docs/example.jpg)
+
+GPX is a widely accepted data format that allows for the sharing and visualizing of GPS data across a variety of platforms and services. Once you've generated a GPX file with `img-to-map`, you can upload it to platforms such as [Strava](https://strava.com/) or [Google Maps](https://www.google.com/maps), or use other tracking services or map software that supports the GPX format. This opens a plethora of possibilities, including analyzing your journey, sharing your travel routes with others, or re-living your adventures.
 
 ## Installation
 
