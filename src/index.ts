@@ -12,7 +12,7 @@ program
   .option('-t, --type <type>', 'track type', 'hiking')
   .option('-f, --folder <folder>', 'folder with photos')
   .option('-o, --output <output>', 'output file', 'track.gpx')
-  .option('--split-by-days', 'split each day to a separate track')
+  .option('--split-by-days', 'split each day to a separate file')
   .option('--debug', 'output extra debugging');
 
 program.parse(process.argv);
