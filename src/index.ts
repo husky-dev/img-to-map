@@ -26,7 +26,7 @@ program
   .option('-n, --name <name>', 'track name', 'My Track')
   .option('-t, --type <type>', 'track type', 'hiking')
   .option('-vp, --viewpoints <viewpoints>', 'path to JSON file with viewpoints')
-  .option('-e, --extend <extend...>', 'paths to JSON files to extend with the track')
+  .option('-e, --extend <extend...>', 'paths to GPX files to extend with the track')
   .option('-f, --folder <folder>', 'folder with photos')
   .option('-o, --output <output>', 'output file', 'track.gpx')
   .option('--split-by-days', 'split each day to a separate file')
