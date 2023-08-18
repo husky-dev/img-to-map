@@ -4,16 +4,21 @@ import path from 'path';
 
 export const mkdirp = (folderPath: string) => mkdirSync(folderPath, { recursive: true });
 
-export const listFilesInFolder = (folderPath: string, extensions?: string[]): string[] => {
+interface ListFilesInFolderOpt {
+  extensions?: string[];
+  recursive?: boolean;
+}
+
+export const listFilesInFolder = (folderPath: string, opt?: ListFilesInFolderOpt): string[] => {
   const res: string[] = [];
   const items = readdirSync(folderPath);
   for (const item of items) {
     const itemPath = path.resolve(folderPath, item);
     const stat = statSync(itemPath);
-    if (stat.isDirectory()) {
-      const newItems = listFilesInFolder(itemPath, extensions);
+    if (stat.isDirectory() && opt?.recursive) {
+      const newItems = listFilesInFolder(itemPath, opt);
       res.push(...newItems);
-    } else if (isFileExtensionInList(itemPath, extensions)) {
+    } else if (isFileExtensionInList(itemPath, opt?.extensions)) {
       res.push(itemPath);
     }
   }
