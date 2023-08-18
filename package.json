@@ -1,7 +1,7 @@
 {
   "name": "img-to-map",
   "description": "Generate GPX files from images with GPS data by using ExifTool",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "keywords": [
     "map",
